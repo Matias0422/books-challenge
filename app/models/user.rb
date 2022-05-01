@@ -1,4 +1,6 @@
-class User < ApplicationRecord
+class User < ApplicationRecord    
+  rolify before_add: :validate_role_kind
+  
   devise :database_authenticatable,
          :jwt_authenticatable,
          :registerable,
@@ -8,4 +10,10 @@ class User < ApplicationRecord
                                            join_table: 'users_books',
                                            foreign_key: 'book_id',
                                            association_foreign_key: 'user_id'
+
+  private
+
+  def validate_role_kind(role)
+
+  end
 end

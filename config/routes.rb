@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :books
+  resources :books do
+    member do
+      post :favorite
+    end
+  end
   resources :authors
 
   devise_for :users,

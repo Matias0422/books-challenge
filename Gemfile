@@ -57,3 +57,7 @@ gem 'has_scope'
 
 # Pagination
 gem 'kaminari'
+
+gem "rolify"
+
+gem 'enumerate_it'

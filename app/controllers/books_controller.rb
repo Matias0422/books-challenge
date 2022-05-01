@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_book, only: %i[ show update destroy ]
+  before_action :set_book, only: %i[ show update destroy favorite ]
 
   has_scope :by_author_id
   has_scope :by_text_on_name_or_description
@@ -36,6 +36,15 @@ class BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     @book.destroy
+  end
+
+  # POST /books/1/favorite
+  def favorite
+    if current_user.favorite_books << @book
+      head :ok
+    else
+      render json: @book.errors, status: :unprocessable_entity
+    end
   end
 
   private
