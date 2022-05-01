@@ -11,4 +11,6 @@ class Role < ApplicationRecord
             :allow_nil => true
 
   scopify
+
+  validates_inclusion_of :name, in: UserRole.list
 end

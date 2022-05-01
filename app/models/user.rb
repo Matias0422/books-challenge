@@ -10,6 +10,4 @@ class User < ApplicationRecord
                                            join_table: 'users_books',
                                            foreign_key: 'book_id',
                                            association_foreign_key: 'user_id'
-
-  validates_inclusion_of :role, in: UserRole.list
 end
