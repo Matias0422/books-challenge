@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_book, only: %i[ show update destroy favorite ]
+  load_and_authorize_resource
 
   has_scope :by_author_id
   has_scope :by_text_on_name_or_description

@@ -1,5 +1,5 @@
 class User < ApplicationRecord    
-  rolify before_add: :validate_role_kind
+  rolify
   
   devise :database_authenticatable,
          :jwt_authenticatable,
@@ -11,9 +11,5 @@ class User < ApplicationRecord
                                            foreign_key: 'book_id',
                                            association_foreign_key: 'user_id'
 
-  private
-
-  def validate_role_kind(role)
-
-  end
+  validates_inclusion_of :role, in: UserRole.list
 end

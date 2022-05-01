@@ -59,5 +59,6 @@ gem 'has_scope'
 gem 'kaminari'
 
 gem "rolify"
+gem "cancan"
 
 gem 'enumerate_it'
