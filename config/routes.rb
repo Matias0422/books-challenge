@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :books do
     member do
-      post :favorite
+      patch :favorite
+      patch :unfavorite
     end
   end
   resources :authors
@@ -11,5 +12,4 @@ Rails.application.routes.draw do
         sessions: 'users/sessions',
         registrations: 'users/registrations'
     }
-
 end

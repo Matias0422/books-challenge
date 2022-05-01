@@ -6,8 +6,8 @@ class BooksController < ApplicationController
   has_scope :by_author_id
   has_scope :by_text_on_name_or_description
   has_scope :order_by_title
-  has_scope :by_user_favorites, type: :boolean do |_controller, scope|
-    scope.by_user_favorites(current_user.id)
+  has_scope :by_user_favorites, type: :boolean do |controller, scope|
+    scope.merge(controller.current_user.favorite_books)
   end
 
   # GET /books
@@ -44,7 +44,7 @@ class BooksController < ApplicationController
 
   # POST /books/1/favorite
   def favorite
-    if current_user.favorite_books << @book
+    if @book.users_who_favorited << current_user
       head :ok
     else
       render json: @book.errors, status: :unprocessable_entity
@@ -53,7 +53,7 @@ class BooksController < ApplicationController
 
   # POST /books/1/favorite
   def unfavorite
-    current_user.favorite_books.destroy(@book)
+    @book.users_who_favorited.destroy(current_user)
     
     head :ok
   end
