@@ -25,7 +25,7 @@ module BookService
           book.description = params[:description]
           book.author_id = params[:author_id]
 
-          book.picture.build(url: params[:image_url])
+          book.picture.build(url: params[:picture_url])
         end
       end
     end
