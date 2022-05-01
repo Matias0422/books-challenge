@@ -1,6 +1,8 @@
 class Book < ApplicationRecord
   belongs_to :author, optional: false
 
+  has_one :picture, as: :imageable, dependent: :destroy
+
   has_and_belongs_to_many :users_who_favorited, class_name: 'User',
                                                 join_table: 'users_books',
                                                 foreign_key: 'user_id',

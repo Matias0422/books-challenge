@@ -15,7 +15,7 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
-    @book = Book.new(book_params)
+    @book = BookService::Builder.call(book_params)
 
     if @book.save
       render json: @book, status: :created, location: @book
@@ -46,6 +46,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:title, :description, :author_id)
+      params.require(:book).permit(:title, :description, :author_id, :image_url)
     end
 end
