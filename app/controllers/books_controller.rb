@@ -2,16 +2,15 @@ class BooksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_book, only: %i[ show update destroy ]
 
+  has_scope :by_author_id
+  has_scope :by_text_on_name_or_description
+  has_scope :order_by_title
+
   # GET /books
   def index
-    @books = Book.all
+    @books = apply_scopes(Book).page(params[:page])
 
     render json: @books
-  end
-
-  # GET /books/1
-  def show
-    render json: @book
   end
 
   # POST /books
