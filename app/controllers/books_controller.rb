@@ -42,7 +42,7 @@ class BooksController < ApplicationController
     @book.destroy
   end
 
-  # POST /books/1/favorite
+  # PATCH /books/1/favorite
   def favorite
     if @book.users_who_favorited << current_user
       head :ok
@@ -51,7 +51,7 @@ class BooksController < ApplicationController
     end
   end
 
-  # POST /books/1/favorite
+  # PATCH /books/1/unfavorite
   def unfavorite
     @book.users_who_favorited.destroy(current_user)
     

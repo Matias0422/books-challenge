@@ -62,3 +62,6 @@ gem "rolify"
 gem "cancan"
 
 gem 'enumerate_it'
+
+gem 'rspec-rails'
+gem 'rspec'
