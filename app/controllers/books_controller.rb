@@ -6,6 +6,9 @@ class BooksController < ApplicationController
   has_scope :by_author_id
   has_scope :by_text_on_name_or_description
   has_scope :order_by_title
+  has_scope :by_user_favorites, type: :boolean do |_controller, scope|
+    scope.by_user_favorites(current_user.id)
+  end
 
   # GET /books
   def index
@@ -47,6 +50,14 @@ class BooksController < ApplicationController
       render json: @book.errors, status: :unprocessable_entity
     end
   end
+
+  # POST /books/1/favorite
+  def unfavorite
+    current_user.favorite_books.destroy(@book)
+    
+    head :ok
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

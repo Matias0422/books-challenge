@@ -4,7 +4,7 @@ class Book < ApplicationRecord
   has_one :picture, as: :imageable, dependent: :destroy
 
   has_and_belongs_to_many :users_who_favorited, class_name: 'User',
-                                                join_table: 'users_books',
+                                                join_table: 'books_users',
                                                 foreign_key: 'user_id',
                                                 association_foreign_key: 'book_id'
 
@@ -13,4 +13,5 @@ class Book < ApplicationRecord
   scope :by_author_id, -> (author_id) { where(author_id: author_id) }
   scope :by_text_on_name_or_description, -> (text) { where('title LIKE ? OR description LIKE ?', "%#{text}%") }
   scope :order_by_title, -> (order = 'ASC') { order("title #{order}") }
+  scope :by_user_favorites, -> (user_id) { joins(:users_who_favorited).where(users: {id: user_id}) }
 end
