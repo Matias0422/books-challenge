@@ -5,6 +5,7 @@ class BooksController < ApplicationController
 
   has_scope :by_author_id
   has_scope :by_text_on_name_or_description
+  has_scope :by_text_on_author_name
   has_scope :order_by_title
   has_scope :by_user_favorites, type: :boolean do |controller, scope|
     scope.merge(controller.current_user.favorite_books)
@@ -19,7 +20,7 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
-    @book = BookService::Builder.call(book_params)
+    @book = Book.new(book_params)
 
     if @book.save
       render json: @book, status: :created, location: @book
@@ -30,7 +31,7 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /books/1
   def update
-    if BookService::Updater.call(@book, book_params)
+    if @book.update(book_params)
       render json: @book
     else
       render json: @book.errors, status: :unprocessable_entity
@@ -67,6 +68,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:title, :description, :author_id, :picture_url)
+      params.require(:book).permit(:title, :description, :author_id, :picture_attributes, :author_attributes)
     end
 end

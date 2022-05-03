@@ -37,6 +37,11 @@ gem "bootsnap", require: false
 # gem "rack-cors"
 
 group :development, :test do
+  gem 'rspec-rails'
+  gem 'rspec'
+
+  gem 'dotenv-rails'
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
@@ -51,8 +56,6 @@ gem 'rack-cors'
 gem 'devise'
 gem 'devise-jwt'
 
-gem 'dotenv-rails', groups: [:development, :test]
-
 gem 'has_scope'
 
 # Pagination
@@ -63,5 +66,4 @@ gem "cancan"
 
 gem 'enumerate_it'
 
-gem 'rspec-rails'
-gem 'rspec'
+

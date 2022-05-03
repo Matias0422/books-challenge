@@ -1,6 +1,6 @@
 class UserRole < EnumerateIt::Base
   associate_values(
-    :ordinary,
+    :reader,
     :librarian
   )
 end
