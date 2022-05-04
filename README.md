@@ -1,24 +1,6 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Modelagem Basica
 
-Things you may want to cover:
+![books_challenge drawio](https://user-images.githubusercontent.com/26308196/166610439-092b6a87-82b3-45f4-84c0-f35fd857ad2e.png)
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
