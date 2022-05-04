@@ -20,8 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_012133) do
   create_table "authors_books", id: false, force: :cascade do |t|
     t.integer "author_id", null: false
     t.integer "book_id", null: false
-    t.index ["author_id"], name: "index_authors_books_on_author_id"
-    t.index ["book_id"], name: "index_authors_books_on_book_id"
+    t.index ["author_id", "book_id"], name: "index_authors_books_on_author_id_and_book_id", unique: true
   end
 
   create_table "books", force: :cascade do |t|
@@ -34,8 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_012133) do
   create_table "books_users", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "book_id", null: false
-    t.index ["book_id"], name: "index_books_users_on_book_id"
-    t.index ["user_id"], name: "index_books_users_on_user_id"
+    t.index ["user_id", "book_id"], name: "index_books_users_on_user_id_and_book_id", unique: true
   end
 
   create_table "jwt_denylist", force: :cascade do |t|

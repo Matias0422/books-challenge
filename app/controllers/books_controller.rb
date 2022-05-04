@@ -58,8 +58,6 @@ class BooksController < ApplicationController
   # PATCH /books/1/unfavorite
   def unfavorite
     @book.users_who_favorited.destroy(current_user)
-    
-    head :ok
   end
   
 
