@@ -29,11 +29,15 @@ RSpec.describe "Books", type: :request do
       let(:params) do
         {
           title: "Test 1",
-          description: "Teste"
+          description: "Teste",
+          picture_attributes: {url: "https://teste.com"},
+          authors_attributes: [{name: "Teste"}]
         }
       end
 
       it { expect{ subject }.to change(Book, :count).by(1) }
+      it { expect{ subject }.to change(Picture, :count).by(1) }
+      it { expect{ subject }.to change(Author, :count).by(1) }
 
       it "returns status created" do
         subject
@@ -61,7 +65,9 @@ RSpec.describe "Books", type: :request do
   end
 
   describe "update" do
-    let(:book) { create(:book) }
+    let!(:book) { create(:book) }
+    let!(:picture) { create(:picture, imageable_type: book.class, imageable_id: book.id) }
+    let!(:author) { create(:author, books: [book]) }
 
     subject do
       patch "/books/#{book.id}",
@@ -74,15 +80,21 @@ RSpec.describe "Books", type: :request do
       let(:params) do
         {
           title: "Test 1",
-          description: "Teste"
+          description: "Teste",
+          picture_attributes: {id: picture.id, url: "https://teste.com"},
+          authors_attributes: [{id: author.id, name: "Teste"}]
         }
       end
 
       let(:old_title) { book.title }
       let(:old_description) { book.description }
+      let(:old_picture_url) { picture.url }
+      let(:old_author_name) { author.name }
 
       it { expect{ subject }.to change { book.reload.title }.from(old_title).to(params[:title]) }
       it { expect{ subject }.to change { book.reload.description }.from(old_description).to(params[:description]) }
+      it { expect{ subject }.to change { book.reload.picture.url }.from(old_picture_url).to(params[:picture_attributes][:url]) }
+      it { expect{ subject }.to change { book.reload.authors.first.name }.from(old_author_name).to(params[:authors_attributes].first[:name]) }
 
       it "returns status ok" do
         subject
