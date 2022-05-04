@@ -1,6 +1,9 @@
 class BooksController < ApplicationController
+  include RackSessionFix
+
   before_action :authenticate_user!
   before_action :set_book, only: %i[ show update destroy favorite ]
+
   load_and_authorize_resource
 
   has_scope :by_author_id
@@ -13,7 +16,7 @@ class BooksController < ApplicationController
 
   # GET /books
   def index
-    @books = apply_scopes(Book).page(params[:page])
+    @books = apply_scopes(Book).page(params[:page]).per(10)
 
     render json: @books
   end

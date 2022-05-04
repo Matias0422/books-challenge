@@ -37,8 +37,10 @@ gem "bootsnap", require: false
 # gem "rack-cors"
 
 group :development, :test do
+  # Unit tests
   gem 'rspec-rails'
-  gem 'rspec'
+  gem 'factory_bot_rails'
+  gem 'faker'
 
   gem 'dotenv-rails'
 
@@ -53,6 +55,7 @@ end
 
 gem 'rack-cors'
 
+# Authentication
 gem 'devise'
 gem 'devise-jwt'
 
@@ -61,9 +64,11 @@ gem 'has_scope'
 # Pagination
 gem 'kaminari'
 
+# Roles and Permissions
 gem "rolify"
-gem "cancan"
+gem "cancancan"
 
+# Enumaration 
 gem 'enumerate_it'
 
 

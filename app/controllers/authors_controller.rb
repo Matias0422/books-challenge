@@ -1,11 +1,14 @@
 class AuthorsController < ApplicationController
+  include RackSessionFix
+
   before_action :authenticate_user!
   before_action :set_author, only: %i[ show update destroy ]
+
   load_and_authorize_resource
 
   # GET /authors
   def index
-    @authors = Author.all.page(params[:page])
+    @authors = Author.all.page(params[:page]).per(10)
 
     render json: @authors
   end
