@@ -16,5 +16,6 @@ class Ability
   def initialize_reader
     can :read, Book
     can :favorite, Book
+    can :unfavorite, Book
   end
 end

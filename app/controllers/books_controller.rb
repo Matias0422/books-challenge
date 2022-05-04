@@ -53,6 +53,11 @@ class BooksController < ApplicationController
     head :unprocessable_entity
   end
 
+  # PATCH /books/1/unfavorite
+  def unfavorite
+    @book.users_who_favorited.destroy(current_user)
+  end
+
   private
     def set_book
       @book = Book.find(params[:id])
