@@ -16,4 +16,5 @@ class Book < ApplicationRecord
 
   accepts_nested_attributes_for :picture
   accepts_nested_attributes_for :authors
+  accepts_nested_attributes_for :users_who_favorited, allow_destroy: true, update_only: true
 end

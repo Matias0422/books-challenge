@@ -48,18 +48,10 @@ class BooksController < ApplicationController
 
   # PATCH /books/1/favorite
   def favorite
-    if @book.users_who_favorited << current_user
-      head :ok
-    else
-      render json: @book.errors, status: :unprocessable_entity
-    end
+    @book.users_who_favorited << current_user
+  rescue SQLite3::ConstraintException, ActiveRecord::AssociationTypeMismatch
+    head :unprocessable_entity
   end
-
-  # PATCH /books/1/unfavorite
-  def unfavorite
-    @book.users_who_favorited.destroy(current_user)
-  end
-  
 
   private
     def set_book
@@ -72,7 +64,8 @@ class BooksController < ApplicationController
         :description,
         :author_id,
         picture_attributes: [:id, :url],
-        authors_attributes: [:id, :name]
+        authors_attributes: [:id, :name],
+        users_who_favorited_attributes: [:id, :_destroy]
       )
     end
 end
