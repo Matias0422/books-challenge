@@ -162,5 +162,16 @@ RSpec.describe "Books", type: :request do
 
       expect(response.status).to eq(204)
     end
+
+    describe "when try to add the same user on users_who_favorited" do
+      let!(:book) { create(:book) }
+      let!(:user_auth) { create(:user, :reader, favorite_books: [book]) }
+
+      it "returns status unprocessable_entity" do
+        subject
+  
+        expect(response.status).to eq(422)
+      end
+    end
   end
 end

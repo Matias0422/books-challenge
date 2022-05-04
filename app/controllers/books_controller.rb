@@ -49,7 +49,7 @@ class BooksController < ApplicationController
   # PATCH /books/1/favorite
   def favorite
     @book.users_who_favorited << current_user
-  rescue SQLite3::ConstraintException, ActiveRecord::AssociationTypeMismatch
+  rescue ActiveRecord::RecordNotUnique, ActiveRecord::AssociationTypeMismatch
     head :unprocessable_entity
   end
 
