@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_03_163253) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_04_012133) do
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -48,6 +48,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_03_163253) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "imageble_type", null: false
+    t.integer "imageble_id", null: false
+    t.string "imageable_type", null: false
+    t.integer "imageable_id", null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable"
+    t.index ["imageble_type", "imageble_id"], name: "index_pictures_on_imageble"
   end
 
   create_table "roles", force: :cascade do |t|
